@@ -27,7 +27,7 @@ const EventController = {
           const events = await Event.findAll();
           return res.json(events);
         } catch (error) {
-          console.error("Error al obtener eventos:", error); // Agrega este registro
+          console.error("Error al obtener eventos:", error); 
           return res.status(500).json({ error: 'Error al obtener eventos' });
         }
       },
