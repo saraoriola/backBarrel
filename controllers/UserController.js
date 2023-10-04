@@ -19,6 +19,29 @@ const UserController = {
       return res.status(500).json({ error: 'Error al obtener usuarios' });
     }
   },
+
+  async updateUser(req, res) {
+    const { id } = req.params; 
+    const { firstName, lastName, email } = req.body; 
+
+    try {
+      const user = await User.findByPk(id);
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.email = email;
+
+      await user.save();
+
+      return res.json(user);
+    } catch (error) {
+      return res.status(400).json({ error: 'Error al actualizar usuario' });
+    }
+  },
   
 };
 
