@@ -7,6 +7,7 @@ require('dotenv').config();
 app.use(express.json());
 
 app.use('/users', require('./routes/users'));
+app.use('/events', require('./routes/events'));
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
