@@ -13,7 +13,7 @@ Este proyecto se centra en el desarrollo de una aplicación web para la empresa 
 
 El proyecto se estructura en torno a tres entidades principales:
 
-1. **Usuario (User)**: Representa a los usuarios del sistema y contiene atributos como `firstName`, `lastName` y `email`. Se establece una relación uno a muchos (1:N) entre usuarios y reservas.
+1. **Usuario (User)**: Representa a los usuarios del sistema y contiene atributos como `name`, `surname` y `email`. Se establece una relación uno a muchos (1:N) entre usuarios y reservas.
 
 2. **Evento (Event)**: Representa los eventos y contiene atributos como `title`, `date` y `location`. Se establece una relación uno a muchos (1:N) entre eventos y reservas.
 

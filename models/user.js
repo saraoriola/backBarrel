@@ -2,25 +2,23 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Booking extends Model {
+  class User extends Model {
     static associate(models) {
-      Booking.belongsTo(models.User, { foreignKey: 'userId' }); 
-      Booking.belongsTo(models.Event, { foreignKey: 'eventId' }); 
+      User.hasMany(models.Booking, { foreignKey: 'userId' }); 
+      User.hasMany(models.Event, { foreignKey: 'userId' }); 
     }
   }
 
-  Booking.init({
-    userId: DataTypes.INTEGER,
-    eventId: DataTypes.INTEGER,
-    status: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-    deletedAt: DataTypes.DATE,
-    description: DataTypes.TEXT,
+  User.init({
+    name: DataTypes.STRING,
+    surname: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Booking',
-    tableName: 'bookings', 
+    modelName: 'User',
+    tableName: 'users', 
   });
 
-  return Booking;
+  return User;
 };
