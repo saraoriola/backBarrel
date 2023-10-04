@@ -47,8 +47,6 @@ const UserController = {
     }
   },
   
-  
-
   async getAllUsers(req, res) {
     try {
       const users = await User.findAll();
