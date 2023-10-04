@@ -2,15 +2,25 @@ const { Event } = require('../models/index');
 
 const EventController = {
 
-  async createEvent(req, res) {
-    const { title, date, location } = req.body;
-    try {
-      const event = await Event.create({ title, date, location });
-      return res.status(201).json(event);
-    } catch (error) {
-      return res.status(400).json({ error: 'Error al crear evento' });
-    }
-  },
+    async createEvent(req, res) {
+        const { title, date, location } = req.body;
+        try {
+          const event = await Event.create({ title, date, location });
+    
+          const formattedEvent = {
+            id: event.id,
+            title: event.title,
+            date: new Date(event.date).toLocaleString(), 
+            location: event.location,
+            updatedAt: new Date(event.updatedAt).toLocaleString(), 
+            createdAt: new Date(event.createdAt).toLocaleString() 
+          };
+    
+          return res.status(201).json(formattedEvent);
+        } catch (error) {
+          return res.status(400).json({ error: 'Error al crear evento' });
+        }
+      },
 
 };
 
