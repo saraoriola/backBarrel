@@ -25,7 +25,6 @@ const EventController = {
       async getAllEvents(req, res) {
         try {
           const events = await Event.findAll();
-          console.log("Events:", events);
           return res.json(events);
         } catch (error) {
           console.error("Error al obtener eventos:", error); // Agrega este registro

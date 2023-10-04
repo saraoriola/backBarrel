@@ -1,58 +1,53 @@
 const { User } = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { jwt_secret } = require("../config/config.json")
+const { jwt_secret } = require("../config/config.json")["development"];
 
 const UserController = {
   async registerUser(req, res) {
     const { name, surname, email, password } = req.body;
   
     try {
-      console.log('Datos recibidos:', { name, surname, email });
-      
       const hashedPassword = await bcrypt.hash(password, 10);
-  
-      console.log('Contraseña hasheada:', hashedPassword);
-  
       const user = await User.create({
         name,
         surname,
         email,
         password: hashedPassword,
       });
-  
-      console.log('Usuario creado:', user);
-  
+    
       return res.status(201).json(user);
     } catch (error) {
       console.error('Error al crear usuario:', error);
       return res.status(400).json({ error: 'Error al crear usuario' });
     }
   },
-  
 
   async loginUser(req, res) {
     const { email, password } = req.body;
-    try {
+    try {  
       const user = await User.findOne({ where: { email } });
-
+  
       if (!user) {
         return res.status(401).json({ error: 'Usuario no encontrado' });
       }
-
+    
       const passwordMatch = await bcrypt.compare(password, user.password);
-
+  
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Contraseña incorrecta' });
       }
-
+  
       const token = jwt.sign({ id: user.id }, jwt_secret, { expiresIn: '1h' });
-
+  
       return res.status(200).json({ token });
     } catch (error) {
+      console.error('Error al iniciar sesión:', error);
       return res.status(500).json({ error: 'Error al iniciar sesión' });
     }
   },
+  
+  
 
   async getAllUsers(req, res) {
     try {
