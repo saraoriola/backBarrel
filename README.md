@@ -35,3 +35,9 @@ El proyecto se estructura en torno a tres entidades principales:
   - Un usuario (opcionalmente) puede crear muchos eventos.
   - Un evento puede tener muchas reservas.
   - Una reserva pertenece a un usuario y a un evento.
+
+  ## Seguridad y Autenticación
+
+- Implementación de Bcrypt para el hash y el salting de contraseñas antes de almacenarlas en la base de datos.
+- Implementación de JWT (JSON Web Tokens) para la autenticación de usuarios.
+- Uso de middleware de autenticación para proteger rutas y endpoints sensibles.
