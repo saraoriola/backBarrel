@@ -29,7 +29,7 @@ const BookingController = {
         }
     },
 
-    async getBookingsByUserId(req, res) {
+    async getMyBookings(req, res) {
       try {
         const { userId } = req.params;
     
