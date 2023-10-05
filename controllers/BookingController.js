@@ -1,7 +1,7 @@
 const { Booking } = require('../models/index');
 
 const BookingController = {
-    async createBooking(req, res) {
+  async createBooking(req, res) {
         try {
           const userId = req.user.id;           
           const eventId = req.params.eventId; 
@@ -27,9 +27,9 @@ const BookingController = {
           console.error('Error al crear la reserva:', error);
           return res.status(500).json({ error: 'Error al crear la reserva' });
         }
-    },
+  },
 
-    async getMyBookings(req, res) {
+  async getMyBookings(req, res) {
       try {
         const { userId } = req.params;
     
@@ -43,9 +43,9 @@ const BookingController = {
         console.error('Error al obtener las reservas:', error);
         return res.status(500).json({ error: 'Error al obtener las reservas' });
       }
-    },
+  },
 
-    async getBookingById(req, res) {
+  async getBookingById(req, res) {
       try {
           const { bookingId } = req.params;
 
@@ -79,13 +79,14 @@ const BookingController = {
       booking.description = description;
   
       await booking.save();
-      
+
       return res.status(200).json(booking);
     } catch (error) {
       console.error('Error al actualizar la reserva:', error);
       return res.status(500).json({ error: 'Error al actualizar la reserva' });
     }
   },
+
   async deleteBooking(req, res) {
     try {
       const { bookingId } = req.params;

@@ -48,8 +48,7 @@ const UserController = {
       return res.status(500).json({ error: 'Error al iniciar sesión' });
     }
   },
-  
-  
+
   async getAllUsers(req, res) {
     try {
       const users = await User.findAll();

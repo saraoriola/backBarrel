@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post('/register', UserController.registerUser);
 router.post('/login', UserController.loginUser);
-router.get('/getAllUsers', UserController.getAllUsers);
-router.put('/updateUser/:id', UserController.updateUser);
-router.delete('/deleteUser/:id', UserController.deleteUser);
+router.get('/getAllUsers', authentication, UserController.getAllUsers);
+router.put('/updateUser/:id', authentication, UserController.updateUser);
+router.delete('/deleteUser/:id', authentication, UserController.deleteUser);
 
 router.get('/myBookings/:userId', BookingController.getMyBookings);
 
