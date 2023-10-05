@@ -1,4 +1,4 @@
-const { User } = require('../models/index');
+const { User, Token } = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { jwt_secret } = require("../config/config.json")["development"];
@@ -40,12 +40,15 @@ const UserController = {
   
       const token = jwt.sign({ id: user.id }, jwt_secret, { expiresIn: '1h' });
   
+      const newToken = await Token.create({ userId: user.id, token });
+  
       return res.status(200).json({ token });
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       return res.status(500).json({ error: 'Error al iniciar sesión' });
     }
   },
+  
   
   async getAllUsers(req, res) {
     try {
