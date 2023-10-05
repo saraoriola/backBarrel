@@ -10,6 +10,6 @@ router.get('/:id', EventController.getEventById);
 router.put('/updateEvent/:id', EventController.updateEvent);
 router.delete('/deleteEvent/:id', EventController.deleteEvent);
 
-router.post('/:id/createBooking',authentication, BookingController.createBooking);
+router.post('/:eventId/createBooking',authentication, BookingController.createBooking);
 
 module.exports = router;

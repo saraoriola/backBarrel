@@ -1,4 +1,5 @@
 const { User, Token } = require("../models/index");
+
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"];
 
@@ -6,7 +7,6 @@ const authentication = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const payload = jwt.verify(token, jwt_secret);
-
     const user = await User.findByPk(payload.id);
 
     if (!user) {
@@ -15,8 +15,7 @@ const authentication = async (req, res, next) => {
 
     const tokenFound = await Token.findOne({
       where: {
-        userId: user.id,
-        token: token,
+        userId: user.id, token: token,
       },
     });
 
