@@ -70,13 +70,8 @@ const BookingController = {
     const { description } = req.body;
   
     try {
-      console.log("bookingId:", bookingId);
-      console.log("description:", description);
-      
       const booking = await Booking.findByPk(bookingId);
-      
-      console.log("booking:", booking);
-      
+
       if (!booking) {
         return res.status(404).json({ error: 'Reserva no encontrada' });
       }
@@ -84,15 +79,31 @@ const BookingController = {
       booking.description = description;
   
       await booking.save();
-  
-      console.log('Reserva actualizada con éxito:', booking);
-  
+      
       return res.status(200).json(booking);
     } catch (error) {
       console.error('Error al actualizar la reserva:', error);
       return res.status(500).json({ error: 'Error al actualizar la reserva' });
     }
-  }
+  },
+  async deleteBooking(req, res) {
+    try {
+      const { bookingId } = req.params;
+
+      const booking = await Booking.findByPk(bookingId);
+
+      if (!booking) {
+        return res.status(404).json({ error: 'Reserva no encontrada' });
+      }
+
+      await booking.destroy();
+
+      return res.status(204).json({ message: 'Reserva eliminada con éxito' }); 
+    } catch (error) {
+      console.error('Error al eliminar la reserva:', error);
+      return res.status(500).json({ error: 'Error al eliminar la reserva' });
+    }
+  },
   
 };
 
