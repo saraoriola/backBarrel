@@ -1,4 +1,4 @@
-const { Booking, User, Event, Token } = require('../models/index');
+const { Booking } = require('../models/index');
 
 const BookingController = {
     async createBooking(req, res) {
@@ -44,6 +44,26 @@ const BookingController = {
         return res.status(500).json({ error: 'Error al obtener las reservas' });
       }
     },
+
+    async getBookingById(req, res) {
+      try {
+          const { bookingId } = req.params;
+
+          const booking = await Booking.findOne({
+              where: { id: bookingId },
+              attributes: { exclude: ['EventId', 'UserId'] },
+
+          });
+
+          if (!booking) {
+              return res.status(404).json({ error: 'Reserva no encontrada' });
+          }
+          return res.status(200).json(booking);
+      } catch (error) {
+          console.error('Error al obtener la reserva por ID:', error);
+          return res.status(500).json({ error: 'Error al obtener la reserva por ID' });
+      }
+  },
 
 };
 
