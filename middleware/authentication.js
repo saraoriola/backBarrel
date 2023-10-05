@@ -1,14 +1,19 @@
-const { User, Token, Sequelize } = require("../models");
+const { User, Token } = require("../models");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"];
 
 const authentication = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log('Token recibido:', token);
+
     const payload = jwt.verify(token, jwt_secret);
+    console.log('Payload del token:', payload);
+
     const user = await User.findByPk(payload.id);
 
     if (!user) {
+      console.log('Usuario no encontrado');
       return res.status(401).send({ message: "Usuario no encontrado" });
     }
 
@@ -20,6 +25,7 @@ const authentication = async (req, res, next) => {
     });
 
     if (!tokenFound) {
+      console.log('Token no autorizado');
       return res.status(401).send({ message: "No estás autorizado" });
     }
 
@@ -31,5 +37,4 @@ const authentication = async (req, res, next) => {
   }
 };
 
-
-module.exports = { authentication};
+module.exports = { authentication };

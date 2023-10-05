@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     userId: DataTypes.INTEGER,
     eventId: DataTypes.INTEGER,
-    status: DataTypes.STRING,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'pending',
+    },    
     createdAt: DataTypes.DATE,
     deletedAt: DataTypes.DATE,
     description: DataTypes.TEXT,

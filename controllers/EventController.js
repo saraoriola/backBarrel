@@ -31,6 +31,24 @@ const EventController = {
           return res.status(500).json({ error: 'Error al obtener eventos' });
         }
       },
+
+      async getEventById(req, res) {
+        try {
+          const {id} = req.params;
+          
+          const event = await Event.findByPk(id);
+    
+          if (!event) {
+            return res.status(404).json({ error: 'Evento no encontrado' });
+          }
+    
+          return res.status(200).json(event);
+        } catch (error) {
+          console.error('Error al obtener el evento por ID:', error);
+          return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+      },
+
       async updateEvent(req, res) {
         const { id } = req.params; 
         const { title, date, location } = req.body;
