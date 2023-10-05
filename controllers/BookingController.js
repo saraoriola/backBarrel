@@ -12,7 +12,6 @@ const BookingController = {
           });
 
           if (existingBooking) {
-            console.log('Ya tienes una reserva para este evento');
             return res.status(400).json({ error: 'Ya tienes una reserva para este evento' });
           }
 
