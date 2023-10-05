@@ -42,7 +42,7 @@ const UserController = {
   
       const newToken = await Token.create({ userId: user.id, token });
   
-      return res.status(200).json({ token });
+      return res.status(200).json({user, token });
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       return res.status(500).json({ error: 'Error al iniciar sesión' });
