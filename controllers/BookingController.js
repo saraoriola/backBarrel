@@ -66,27 +66,29 @@ const BookingController = {
   },
 
   async updateBooking(req, res) {
-    const { bookingId } = req.params;
-    const { description } = req.body;
-  
     try {
-      const booking = await Booking.findByPk(bookingId);
+      const { bookingId } = req.params;
+      const { description } = req.body;
 
+      const booking = await Booking.findOne({
+        where: { id: bookingId },
+      });
+      
       if (!booking) {
         return res.status(404).json({ error: 'Reserva no encontrada' });
       }
-  
+      
       booking.description = description;
   
       await booking.save();
-
+  
       return res.status(200).json(booking);
     } catch (error) {
       console.error('Error al actualizar la reserva:', error);
       return res.status(500).json({ error: 'Error al actualizar la reserva' });
     }
   },
-
+  
   async deleteBooking(req, res) {
     try {
       const { bookingId } = req.params;
