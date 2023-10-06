@@ -1,4 +1,4 @@
-const { Booking } = require('../models/index');
+const { Booking, Event } = require('../models/index');
 
 const BookingController = {
   async createBooking(req, res) {
@@ -32,18 +32,11 @@ const BookingController = {
 async getMyBookings(req, res) {
   try {
     const userId = req.user.id; 
-    console.log('UserID:', userId);
-
-    // Agregar más console.log para depurar
-    console.log('Antes de la consulta a la base de datos');
 
     const bookings = await Booking.findAll({
       where: { userId },
-      attributes: { exclude: ['EventId', 'UserId'] },
+      include: [{ model: Event }],
     });
-
-    console.log('Después de la consulta a la base de datos');
-
     return res.status(200).json(bookings);
   } catch (error) {
     console.error('Error al obtener las reservas:', error);
@@ -51,8 +44,6 @@ async getMyBookings(req, res) {
   }
 },
 
-  
-  
   async getBookingById(req, res) {
     try {
       const { bookingId } = req.params;
