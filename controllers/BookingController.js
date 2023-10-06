@@ -29,22 +29,30 @@ const BookingController = {
     }
   },
 
-  async getMyBookings(req, res) {
-    try {
-      const { userId } = req.params;
+async getMyBookings(req, res) {
+  try {
+    const userId = req.user.id; 
+    console.log('UserID:', userId);
 
-      const bookings = await Booking.findAll({
-        where: { userId },
-        attributes: { exclude: ['EventId', 'UserId'] },
-      });
+    // Agregar más console.log para depurar
+    console.log('Antes de la consulta a la base de datos');
 
-      return res.status(200).json(bookings);
-    } catch (error) {
-      console.error('Error al obtener las reservas:', error);
-      return res.status(500).json({ error: 'Error al obtener las reservas' });
-    }
-  },
+    const bookings = await Booking.findAll({
+      where: { userId },
+      attributes: { exclude: ['EventId', 'UserId'] },
+    });
 
+    console.log('Después de la consulta a la base de datos');
+
+    return res.status(200).json(bookings);
+  } catch (error) {
+    console.error('Error al obtener las reservas:', error);
+    return res.status(500).json({ error: 'Error al obtener las reservas' });
+  }
+},
+
+  
+  
   async getBookingById(req, res) {
     try {
       const { bookingId } = req.params;
